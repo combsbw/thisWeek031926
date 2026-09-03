@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pre-Lesson · Chapter 2: Chemistry 101</title>
+<meta name="description" content="Interactive pre-lesson for Chapter 2: Chemistry 101 — General Biology Unit 1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script src="assets/engine.js"></script>
+<script>
+const DATA = {
+  id: "ch2",
+  kicker: "Unit 1 · Chapter 2",
+  icon: "💧",
+  title: "Chemistry 101",
+  subtitle: "One hub fact — water is polar — and everything else is a spoke off it.",
+  hook: {
+    lead: "If water is just H2O, why does the book spend half a chapter on it?",
+    body: "Because it isn't really eight separate topics. It's one topic — polarity — wearing eight different faces. Learn the hub, and the spokes come almost for free."
+  },
+  shape: {
+    title: "Hub-and-Spoke",
+    description: "Unlike Chapter 1's parallel ladders, this chapter has one center and everything radiates out from it.",
+    pattern: "Pattern: Hub-and-Spoke",
+    emoji: "☀️",
+    headline: "Water's polarity is the hub",
+    detail: "Roughly two-thirds of this chapter is just consequences of one fact: water shares its electrons with hydrogen unequally. Don't memorize 8 water-properties as 8 separate words — memorize 1 word (polarity) with 8 labeled arrows pointing out from it. A small bonding satellite feeds the hub; a small acids/bases tangent hangs off the other side."
+  },
+  folders: [
+    { emoji:"⚛️", name:"1 · Atomic Structure &amp; Bonding", role:"Prerequisite satellite — everything else depends on it.",
+      terms:["Protons","Isotopes","Valence electrons","Ionic bond","Covalent bond","Polarity"] },
+    { emoji:"💧", name:"2 · The Water Hub", role:"One fact (polarity), many spokes.",
+      terms:["Hydrogen bond","Cohesion","Adhesion","Surface tension","Solvent","Specific heat"] },
+    { emoji:"🧪", name:"3 · Acids, Bases &amp; pH", role:"A small tangent off the hub.",
+      terms:["Acid","Base","pH scale","Buffer"] }
+  ],
+  sortGame: {
+    instructions: "Sort each chip: does it belong to bonding (the prerequisite), water (the hub), or acids/bases (the tangent)?",
+    bins: [
+      {id:"bonding", label:"⚛️ Bonding"},
+      {id:"water", label:"💧 Water Hub"},
+      {id:"acid", label:"🧪 Acids/Bases"}
+    ],
+    chips: [
+      {term:"Ionic bond", bin:"bonding"},
+      {term:"Covalent bond", bin:"bonding"},
+      {term:"Valence electrons", bin:"bonding"},
+      {term:"Isotope", bin:"bonding"},
+      {term:"Cohesion", bin:"water"},
+      {term:"Surface tension", bin:"water"},
+      {term:"Hydrophobic", bin:"water"},
+      {term:"Hydrogen bond", bin:"water"},
+      {term:"pH scale", bin:"acid"},
+      {term:"Buffer", bin:"acid"}
+    ]
+  },
+  traps: [
+    { trap:"“Sharing” and “transferring” electrons basically mean the same thing — atoms connecting.",
+      fix:"Opposite mechanisms. Ionic = one atom fully GIVES UP an electron (transfer). Covalent = both atoms keep holding on (share). Polarity is built from the covalent case — unequal sharing — not the ionic case." },
+    { trap:"A higher pH number means something is more acidic.",
+      fix:"Backwards from intuition, on purpose to trip you up: pH runs 0 (most acidic) to 14 (most basic), with 7 neutral. Higher number = LESS acidic. Flag this now, before it becomes a habit." }
+  ],
+  hookQuestions: [
+    { q:"Why does HOW two atoms connect (not just THAT they connect) matter for how a molecule behaves?", a:"Because ionic vs. covalent, and even shared-equally vs. shared-unequally, changes the molecule's shape and charge distribution — which is exactly what makes water special." },
+    { q:"If water is just H2O, why does the book spend an entire half-chapter on it?", a:"Because it isn't eight topics — it's one topic (polarity) with eight faces. Keep that reframe in mind as you read the water section." },
+    { q:"What's the practical difference between something acidic and something basic, for your body?", a:"It's about free H+ ions floating in solution — and your body uses buffers to keep that number from swinging dangerously, which is homeostasis in chemical form." }
+  ],
+  diagram: {
+    title: "How Chapter 2's ideas connect",
+    description: "Notice how many boxes trace straight back to one node: water's polarity.",
+    mermaid: `flowchart TD
+    P1["Outside prerequisite:\\nproton/electron vocabulary"]:::ext
+    A[Protons, neutrons, electrons] --> B[Isotopes]
+    P1 --> A
+    A --> D["Valence electrons"]
+    D --> E[Ionic bonding]
+    D --> F[Covalent bonding]
+    F --> G["Polar vs non-polar bonds"]
+    G --> H["Water's polarity"]
+    H --> I[Hydrogen bonding]
+    I --> J["Cohesion / adhesion"]
+    I --> K["Surface tension"]
+    I --> L["Capillary action"]
+    I --> M["High specific heat"]
+    H --> N["Water as solvent"]
+    N --> O["Hydrophilic vs hydrophobic"]
+    N --> Q["Acids, bases, pH"]
+    Q --> R[Buffers]
+    classDef ext fill:#fce7f3,stroke:#ec4899,stroke-width:1px;`
+  },
+  forwardLinks: [
+    { where:"This Unit · Ch 3", what:"Covalent bonding builds the macromolecules — peptide bonds, nucleic-acid backbones." },
+    { where:"This Unit · Ch 3–4", what:"Hydrophilic/hydrophobic behavior builds phospholipids and the cell membrane." },
+    { where:"Unit 2 · Ch 5", what:"What can and can't cross the membrane depends on this chapter's polarity rules." },
+    { where:"Throughout the course", what:"pH and buffers return as a homeostasis mechanism again and again." },
+    { where:"Ch 20", what:"Isotopes and half-life come back as radiometric dating evidence for evolution." }
+  ],
+  playbook: "Drill the two identity/bonding chains in Folder 1 first — they don't depend on each other, but polarity is the exact bridge into Folder 2. Then, for every water property, ask “why” instead of “what” (why does water have high specific heat?) — the answer is always the same one fact. Read Folder 3 as one narrative pass: reaction → equation → conservation → acid/base → pH → buffer.",
+  quiz: [
+    { q:"This chapter's overall shape is best described as…", choices:["Four parallel folders","One hub fact with many spokes radiating out","A random glossary","Two unrelated halves stapled together"], correctIndex:1,
+      explain:"Hub-and-spoke: water's polarity is the hub; cohesion, adhesion, specific heat, and solvent behavior are all spokes off it." },
+    { q:"An ionic bond forms when electrons are…", choices:["Shared equally","Shared unevenly","Transferred from one atom to another","Never involved"], correctIndex:2,
+      explain:"Ionic = transfer (one atom gives up, one takes). Covalent = share (equal = non-polar, unequal = polar)." },
+    { q:"Water's polarity comes from…", choices:["An ionic bond between O and H","Equal sharing of electrons","Unequal (polar) sharing of electrons between O and H","Water having no charge at all"], correctIndex:2,
+      explain:"Polarity = a polar COVALENT bond — unequal sharing, not a transfer." },
+    { q:"On the pH scale, a solution with pH 3 is…", choices:["Very basic","Neutral","Very acidic","Impossible to have"], correctIndex:2,
+      explain:"Lower number = more acidic. This is the scale's #1 trap." },
+    { q:"If you understand why water has high specific heat, you should ALSO be able to explain…", choices:["Nothing else — it's an isolated fact","Cohesion, adhesion, and solvent behavior too, since they share the same root cause","Only ionic bonding","Only the pH scale"], correctIndex:1,
+      explain:"That's the whole point of hub-and-spoke: one root cause, many derivable consequences." }
+  ],
+  nav: {
+    prev: { href:"chapter-1.html", label:"Intro to Biology" },
+    up: { href:"index.html", label:"Unit 1 Overview" },
+    next: { href:"chapter-3.html", label:"Chemistry of Life" }
+  }
+};
+PreLesson(DATA);
+</script>
+</body>
+</html>

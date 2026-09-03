@@ -34,6 +34,10 @@ After the first load, the app works completely offline — no server needed. All
 
 To access from another device (like an iPad), make sure both devices are on the same WiFi, then open the URL shown in the terminal (your computer's local IP).
 
+## Biology Pre-Lessons
+
+`pre-lessons/` contains interactive, gamified pre-lesson pages for **General Biology — Unit 1: Chemistry of Life and the Cell**. Open `pre-lessons/index.html` (via the same local server) to start — it links out to a pre-lesson for each of the four chapters. Each page tracks its own progress and XP in `localStorage`, and the unit hub shows a live "passport" of progress across all four.
+
 ## File Structure
 ```
 ├── index.html      ← The full app (React bundled inline)
@@ -42,6 +46,10 @@ To access from another device (like an iPad), make sure both devices are on the 
 ├── icons/
 │   ├── icon-192.png
 │   └── icon-512.png
+├── pre-lessons/     ← Interactive Biology Unit 1 pre-lessons
+│   ├── index.html       (Unit 1 hub / passport)
+│   ├── chapter-1.html … chapter-4.html
+│   └── assets/style.css, engine.js
 ├── serve.sh        ← Start server (macOS/Linux)
 ├── serve.bat       ← Start server (Windows)
 └── README.md

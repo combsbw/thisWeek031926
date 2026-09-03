@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pre-Lesson · Chapter 3: Chemistry of Life</title>
+<meta name="description" content="Interactive pre-lesson for Chapter 3: Chemistry of Life — General Biology Unit 1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script src="assets/engine.js"></script>
+<script>
+const DATA = {
+  id: "ch3",
+  kicker: "Unit 1 · Chapter 3",
+  icon: "🧱",
+  title: "Chemistry of Life",
+  subtitle: "One template — build vs. break — photocopied four times, once per macromolecule.",
+  hook: {
+    lead: "If you had to design a molecule to store energy, one to catalyze reactions, one to build structure, and one to store information — would you expect them to look similar, or completely different?",
+    body: "Keep that prediction in mind. This chapter looks chaotic (dozens of named molecules) but it's actually the most repetitive chapter yet: 2 reactions + 1 monomer/polymer idea, applied 4 times."
+  },
+  shape: {
+    title: "Template, Applied Four Times",
+    description: "Read this as one template plus a 4-row table to fill in — not forty new facts.",
+    pattern: "Pattern: Template ×4",
+    emoji: "🧩",
+    headline: "Dehydration builds. Hydrolysis breaks.",
+    detail: "Dehydration links monomers and releases water; hydrolysis adds water and splits polymers apart. Every macromolecule family gets built by the same two reactions — only the monomer name changes each time. If a term doesn't obviously belong in one of the four rows (protein structure levels, carb sizes), it's a zoom-in on ONE row, not a fifth row."
+  },
+  folders: [
+    { emoji:"🔁", name:"The Template", role:"Taught once, applied four times: dehydration ↔ hydrolysis.",
+      terms:["Monomer","Polymer","Dehydration","Hydrolysis","Functional group"] },
+    { emoji:"🧬", name:"Row 1 · Proteins", role:"Monomer: amino acid. Folds through 4 levels.",
+      terms:["Amino acid","Peptide bond","Primary","Tertiary","Quaternary"] },
+    { emoji:"🍞", name:"Row 2 · Carbohydrates", role:"Monomer: monosaccharide. Energy + structure.",
+      terms:["Glucose","Glycogen","Starch","Cellulose","Chitin"] },
+    { emoji:"🫧", name:"Row 3 · Lipids", role:"Monomer-ish: fatty acid + glycerol. Membrane + storage.",
+      terms:["Phospholipid","Triglyceride","Fatty acid","Glycerol"] },
+    { emoji:"🧵", name:"Row 4 · Nucleic Acids", role:"Monomer: nucleotide. Information storage.",
+      terms:["Nucleotide","Purine","Pyrimidine","Sugar-phosphate backbone"] }
+  ],
+  sortGame: {
+    instructions: "Two chips belong to the template itself. The rest belong to exactly one macromolecule row.",
+    bins: [
+      {id:"template", label:"🔁 Template"},
+      {id:"protein", label:"🧬 Proteins"},
+      {id:"carb", label:"🍞 Carbs"},
+      {id:"lipid", label:"🫧 Lipids"},
+      {id:"nucleic", label:"🧵 Nucleic Acids"}
+    ],
+    chips: [
+      {term:"Dehydration reaction", bin:"template"},
+      {term:"Hydrolysis reaction", bin:"template"},
+      {term:"Amino acid", bin:"protein"},
+      {term:"Peptide bond", bin:"protein"},
+      {term:"Glycogen", bin:"carb"},
+      {term:"Monosaccharide", bin:"carb"},
+      {term:"Phospholipid", bin:"lipid"},
+      {term:"Triglyceride", bin:"lipid"},
+      {term:"Nucleotide", bin:"nucleic"},
+      {term:"Purine", bin:"nucleic"}
+    ]
+  },
+  traps: [
+    { trap:"Primary, secondary, tertiary, and quaternary structure are four different KINDS of proteins.",
+      fix:"They're four STAGES OF FOLDING of one single molecule. Primary = the amino-acid sequence itself; each level after is a deeper fold of the exact same chain, not a new protein." },
+    { trap:"Mono-, di-, oligo-, and polysaccharide are four separate macromolecule families, like the four rows.",
+      fix:"They're just a SIZE SCALE within the carbohydrate row — 1 sugar, 2 sugars, 3–10 sugars, 100+ sugars. One row, zoomed in, not four rows." }
+  ],
+  hookQuestions: [
+    { q:"~96% of your body is just 4 elements (H, C, N, O). What's doing all the structural “work” to build such different molecules from so few ingredients?", a:"Carbon's four bonding sites, plus the same build/break template reused four times. Few ingredients, one flexible mechanism, huge variety." },
+    { q:"What's the difference between building something and breaking it down — does water get added or removed?", a:"Dehydration BUILDS and releases water. Hydrolysis BREAKS and adds water. Memory hook: dehydration = drying out (losing water) to build; hydrolysis = adding water (hydro) to break apart (lysis)." },
+    { q:"Predict: would you expect a fuel-storage molecule, a catalyst, a structural molecule, and an information-storage molecule to look similar or totally different?", a:"Check your prediction against the 4-row table above once you've filled it in — that's exactly the comparison this chapter sets up." }
+  ],
+  diagram: {
+    title: "How Chapter 3's ideas connect",
+    description: "One template branches into all four macromolecule families.",
+    mermaid: `flowchart TD
+    P1["From Ch 2:\\ncovalent bonding, polarity,\\nhydrophobic/hydrophilic"]:::ext
+    C["Dehydration reaction\\n(builds, releases H2O)"] --> D["Monomer → Polymer"]
+    E["Hydrolysis reaction\\n(breaks, adds H2O)"] --> F["Polymer → Monomers"]
+    P1 --> C
+    P1 --> E
+    D --> G["Amino acids → Proteins\\n(primary→...→quaternary)"]
+    D --> H["Monosaccharides → Polysaccharides"]
+    D --> I["Phospholipids / triglycerides"]
+    D --> J["Nucleotides → Nucleic acids"]
+    P1 --> I
+    I --> K["Hydrophilic head / hydrophobic tails\\n→ bilayer (Ch 4)"]
+    J --> L["Purines vs pyrimidines\\n→ DNA structure (Ch 4)"]
+    classDef ext fill:#fce7f3,stroke:#ec4899,stroke-width:1px;`
+  },
+  forwardLinks: [
+    { where:"This Unit · Ch 4", what:"Phospholipids become the cell membrane; nucleotides become DNA structure." },
+    { where:"Ch 6", what:"Proteins become enzymes — the catalysts of nearly every reaction." },
+    { where:"Unit 2 · Ch 7–8", what:"Glucose is the fuel molecule tracked through respiration and photosynthesis." },
+    { where:"Ch 12", what:"Ribosomal machinery builds on this chapter's protein-folding levels." },
+    { where:"Chapters 6–8, 28", what:"Dehydration/hydrolysis reappears by name in digestion and metabolism." }
+  ],
+  playbook: "Learn the template cluster first, as its own 5-ish-term flashcard set — one mechanism, two directions. Then work row by row through the table, asking the same 3 questions every time: what's the monomer, what's the bond, which direction is dehydration vs. hydrolysis here? By Row 4, that should feel automatic.",
+  quiz: [
+    { q:"This chapter's overall shape is best described as…", choices:["Four unrelated topics","One hub fact with many spokes","One template (build/break) applied four times","A strict ladder with one rung per term"], correctIndex:2,
+      explain:"Same mechanism (dehydration/hydrolysis), same monomer→polymer idea, filled in with different vocabulary 4 times." },
+    { q:"Dehydration reactions…", choices:["Break polymers and add water","Build polymers and release water","Only happen in proteins","Are the same thing as hydrolysis"], correctIndex:1,
+      explain:"Dehydration = drying out (losing water) to build. Hydrolysis = adding water to break apart." },
+    { q:"Primary → secondary → tertiary → quaternary structure describes…", choices:["Four different protein molecules","Stages of folding of ONE polypeptide chain","Four sizes of sugar","Four kinds of lipids"], correctIndex:1,
+      explain:"A folding ladder for a single molecule — not a second set of “four macromolecules.”" },
+    { q:"What's the monomer of a nucleic acid?", choices:["Amino acid","Monosaccharide","Nucleotide","Fatty acid"], correctIndex:2,
+      explain:"Nucleotide = sugar + phosphate + nitrogenous base. Nucleotides link into nucleic acids." },
+    { q:"Mono-, di-, oligo-, and polysaccharide are…", choices:["Four separate macromolecule families","A size scale within the carbohydrate row","Four kinds of proteins","Unrelated to each other"], correctIndex:1,
+      explain:"A zoom-in on ONE row (carbohydrates), by size — the same trap shape as the protein-structure levels." }
+  ],
+  nav: {
+    prev: { href:"chapter-2.html", label:"Chemistry 101" },
+    up: { href:"index.html", label:"Unit 1 Overview" },
+    next: { href:"chapter-4.html", label:"Cell Biology" }
+  }
+};
+PreLesson(DATA);
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pre-Lesson · Chapter 4: Cell Biology</title>
+<meta name="description" content="Interactive pre-lesson for Chapter 4: Cell Biology — General Biology Unit 1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script src="assets/engine.js"></script>
+<script>
+const DATA = {
+  id: "ch4",
+  kicker: "Unit 1 · Chapter 4",
+  icon: "🔬",
+  title: "Cell Biology",
+  subtitle: "Two chapters stapled under one title — don't look for a connection until each half is solid.",
+  hook: {
+    lead: "Two meters of DNA fit inside a nucleus too small to see without a microscope. What kind of packing strategy would that require?",
+    body: "Predict a number of “packing steps” before reading — then check it against the five-rung ladder below. This chapter's other half asks a different question entirely: what's the ONE feature that separates “has internal compartments” cells from “doesn't”?"
+  },
+  shape: {
+    title: "Two Halves, Two Different Patterns",
+    description: "Half A (organelles) is a hub-and-spoke, like Ch. 2's water section. Half B (DNA) is a scale-ladder, like Ch. 1's ecological hierarchy.",
+    pattern: "Pattern: Two Halves",
+    emoji: "🧬🔬",
+    headline: "Organelles (hub-and-spoke) + DNA packaging (ladder)",
+    detail: "Half A's hub is the eukaryote/prokaryote boundary — does a structure need a membrane-bound compartment, or not? Sort every organelle against that one question first. Half B is a strict zoom: DNA → histones → nucleosome → chromatin → chromosome, each rung defined only by the rung before it. Don't force a link between the halves — that's the trap this chapter sets."
+  },
+  folders: [
+    { emoji:"🌐", name:"Framing", role:"Sits above both halves — the 3-domain map everything else checks against.",
+      terms:["Cell theory","Eukarya","Prokaryotes","Bacteria","Archaea"] },
+    { emoji:"🧱", name:"Structure &amp; Division", role:"Half A — boundary, shape, and division machinery.",
+      terms:["Plasma membrane","Cytoskeleton","Cell wall","Centrosome"] },
+    { emoji:"⚡", name:"Energy Production", role:"Half A — eukaryotes only, autotroph-symmetric.",
+      terms:["Mitochondria","Chloroplast","Thylakoid","Chlorophyll"] },
+    { emoji:"📦", name:"Protein Management", role:"Half A — an assembly line, learn it in order.",
+      terms:["Ribosome","Rough ER","Golgi apparatus","Vesicle"] },
+    { emoji:"♻️", name:"Storage &amp; Maintenance", role:"Half A — the cellular cleanup crew.",
+      terms:["Lysosome","Peroxisome","Vacuole"] },
+    { emoji:"🧬", name:"Genetic Control", role:"Half A — where DNA lives inside the cell.",
+      terms:["Nucleus","Nucleoid","Plasmids","Nucleolus"] },
+    { emoji:"🧵", name:"DNA Packaging Ladder", role:"Half B — a strict 5-rung zoom, no skipping.",
+      terms:["Histone","Nucleosome","Chromatin","Chromosome"] }
+  ],
+  sortGame: {
+    instructions: "First sort by HALF, not by function: does this term belong to the organelle half, or the DNA-packaging half?",
+    bins: [
+      {id:"organelle", label:"🔬 Half A · Organelles"},
+      {id:"dna", label:"🧬 Half B · DNA Packaging"}
+    ],
+    chips: [
+      {term:"Mitochondria", bin:"organelle"},
+      {term:"Ribosome", bin:"organelle"},
+      {term:"Golgi apparatus", bin:"organelle"},
+      {term:"Lysosome", bin:"organelle"},
+      {term:"Centrosome", bin:"organelle"},
+      {term:"Histone", bin:"dna"},
+      {term:"Nucleosome", bin:"dna"},
+      {term:"Chromatin", bin:"dna"},
+      {term:"Chromosome", bin:"dna"},
+      {term:"Antiparallel strands", bin:"dna"}
+    ]
+  },
+  traps: [
+    { trap:"Mitochondria and chloroplasts are basically interchangeable — both are “energy organelles.”",
+      fix:"Mitochondria run respiration in EVERY eukaryotic cell that needs ATP. Chloroplasts run photosynthesis ONLY in cells that photosynthesize (plants, algae). Not interchangeable." },
+    { trap:"Lysosomes and peroxisomes are the same kind of “cleanup” organelle, found in the same cells.",
+      fix:"Lysosomes are almost animal-cell-only “recycling stomachs.” Peroxisomes show up in BOTH plant and animal cells and specifically neutralize hydrogen peroxide. A subtle but real split." },
+    { trap:"DNA packaging (this chapter) and DNA replication (Ch. 9) are basically the same event — DNA getting “bigger.”",
+      fix:"Completely different events. Packaging = folding the SAME amount of DNA more tightly. Replication = doubling the AMOUNT of DNA. This chapter never changes how much DNA there is." }
+  ],
+  hookQuestions: [
+    { q:"What's the one structural feature that separates “has internal compartments” cells from “doesn't”?", a:"Membrane-bound organelles — the eukaryote/prokaryote line. Answer this first; it organizes the entire organelle half before you learn what any single organelle does." },
+    { q:"Two meters of DNA fit inside a nucleus too small to see without a microscope. What packing strategy would that take?", a:"Compare your prediction to the actual answer: DNA wraps histones → nucleosome (“beads on a string”) → coils into chromatin → folds into a chromosome. Multiple stages of coiling, not one big fold." },
+    { q:"If a cell is basically a bag of Chapter 3's molecules, what does ORGANIZING those molecules into compartments buy an organism?", a:"Specialization and control — reactions can happen in the right place, at the right time, without interfering with each other. That's the whole argument for why organelles exist." }
+  ],
+  diagram: {
+    title: "How Chapter 4's ideas connect",
+    description: "Two independent branches — organelle/eukaryote-prokaryote, and DNA packaging — both feeding forward into later units.",
+    mermaid: `flowchart TD
+    P1["From Ch 3:\\nphospholipids, nucleotides,\\nnitrogenous bases"]:::ext
+    P2["From Ch 1:\\ncell as basic unit of life"]:::ext
+    A[Cell theory] --> B["Eukaryote vs prokaryote"]
+    P2 --> A
+    B --> C["Structure/support organelles"]
+    P1 --> C
+    B --> D["Energy organelles"]
+    D --> D1["→ Ch 7 respiration, Ch 8 photosynthesis"]
+    B --> E["Protein-management organelles"]
+    E --> E1["→ Ch 12 translation"]
+    B --> F["Storage/maintenance organelles"]
+    B --> G["Division: centrosome"]
+    G --> G1["→ Ch 9 mitosis"]
+    B --> H["Genetic control: nucleus/nucleoid/plasmids"]
+    P1 --> I["Base pairing A-T, G-C"]
+    I --> J["Antiparallel double helix"]
+    J --> K["Histones → nucleosome"]
+    K --> L["Nucleosome → chromatin"]
+    L --> M["Chromatin → chromosome"]
+    H --> I
+    M --> N["→ Ch 9 mitosis, Ch 10 meiosis"]
+    classDef ext fill:#fce7f3,stroke:#ec4899,stroke-width:1px;`
+  },
+  forwardLinks: [
+    { where:"Units 6–7", what:"Eukaryote/prokaryote is the organizing axis for the entire kingdom survey." },
+    { where:"Unit 2 · Ch 7–8", what:"Mitochondria and chloroplasts become the operational subject of respiration & photosynthesis." },
+    { where:"Unit 2 · Ch 5", what:"The plasma membrane, built from Ch 3's phospholipids, is the entire subject." },
+    { where:"Ch 12", what:"Ribosome/ER/Golgi becomes the translation & protein-folding machinery." },
+    { where:"Unit 3 · Ch 9–12", what:"DNA structure & packaging is the essential, unrepeated prerequisite for mitosis, meiosis, transcription, translation." },
+    { where:"Ch 18 &amp; 22", what:"Bacterial plasmids set up horizontal gene transfer and the bacteria chapter." }
+  ],
+  playbook: "Master the framing terms first, as a short preamble. Then treat Half A and Half B as two SEPARATE study sessions — don't hunt for a connection between them. Drill the organelle function table one category at a time, sorting every organelle against the eukaryote/prokaryote boundary first. Then, separately, drill the DNA ladder strictly rung by rung — never quiz a rung cold, without the rung before it.",
+  quiz: [
+    { q:"This chapter's overall shape is best described as…", choices:["One hub fact with spokes","Two unrelated halves, each with its own separate pattern","A template applied four times","A single continuous ladder"], correctIndex:1,
+      explain:"Organelles (hub-and-spoke) + DNA packaging (ladder) — two different pattern types stapled together." },
+    { q:"The single boundary line that organizes the ENTIRE organelle half is…", choices:["Plant vs animal","Big cell vs small cell","Has membrane-bound organelles vs doesn't (eukaryote vs prokaryote)","Has DNA vs doesn't"], correctIndex:2,
+      explain:"Sort every organelle against this question FIRST, before learning individual functions." },
+    { q:"Mitochondria vs. chloroplasts:", choices:["Interchangeable energy organelles","Mitochondria = ATP in all eukaryotes that need it; chloroplasts = photosynthesis only in autotrophs","Both are prokaryote-only","Neither makes ATP"], correctIndex:1,
+      explain:"Same “energy organelle” label, very different scope." },
+    { q:"The DNA packaging ladder goes, in order…", choices:["Chromosome → chromatin → nucleosome → histone → DNA","DNA → histone (nucleosome) → chromatin → chromosome","DNA → chromosome → chromatin → nucleosome","There is no fixed order"], correctIndex:1,
+      explain:"DNA wraps histones to form a nucleosome; nucleosomes coil into chromatin; chromatin folds into a chromosome." },
+    { q:"DNA packaging (this chapter) changes…", choices:["How much DNA there is","How tightly the same amount of DNA is folded","Nothing at all","The DNA's base sequence"], correctIndex:1,
+      explain:"Packaging ≠ replication. This chapter never changes the AMOUNT of DNA — only how tightly it's coiled." }
+  ],
+  nav: {
+    prev: { href:"chapter-3.html", label:"Chemistry of Life" },
+    up: { href:"index.html", label:"Unit 1 Overview" }
+  }
+};
+PreLesson(DATA);
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pre-Lesson · Chapter 1: Intro to Biology</title>
+<meta name="description" content="Interactive pre-lesson for Chapter 1: Intro to Biology — General Biology Unit 1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script src="assets/engine.js"></script>
+<script>
+const DATA = {
+  id: "ch1",
+  kicker: "Unit 1 · Chapter 1",
+  icon: "🧬",
+  title: "Intro to Biology",
+  subtitle: "One idea, told four times at four different scales — not one long argument.",
+  hook: {
+    lead: "Why is “what is alive?” a harder question than it sounds?",
+    body: "Before you read a single definition, know this: the chapter isn't testing your memory yet. It's handing you a map — four folders and a filing system — so the rest of the year has somewhere to go."
+  },
+  shape: {
+    title: "Four Folders, One Idea",
+    description: "The chapter is not one continuous argument. It's the same idea told four separate times, at four different scales.",
+    pattern: "Pattern: Parallel Folders",
+    emoji: "🗂️",
+    headline: "Genetics · Information · Energy · Diversity",
+    detail: "The biggest reading mistake is trying to connect every new term to every other term as it arrives. Most terms only connect within their own folder. Open four mental folders before you read — genetics ladder, information transmission, energy transmission, diversity — and drop each new word into exactly one, plus a fifth, smaller folder for the six characteristics of life."
+  },
+  folders: [
+    { emoji:"🧬", name:"1 · The Genetics Ladder", role:"One trait changing and spreading — a strict chain.",
+      terms:["DNA","Gene","Mutation","Natural selection","Adaptation","Evolution"] },
+    { emoji:"🔗", name:"2 · Information Transmission", role:"How instructions get copied &amp; communicated.",
+      terms:["Chromosome","Gene count","Proofreading","Hormones"] },
+    { emoji:"⚡", name:"3 · Energy Transmission", role:"How energy enters &amp; moves through living things.",
+      terms:["Autotroph","Photosynthesis","Heterotroph","Cellular respiration","ATP"] },
+    { emoji:"🌍", name:"4 · Diversity (2 ladders)", role:"Grouping by ecology, and separately, by ancestry.",
+      terms:["Population","Community","Ecosystem","Biome","Species","Genus","Domain"] },
+    { emoji:"❤️", name:"5 · Characteristics of Life", role:"The closing test that applies folder 1's vocabulary.",
+      terms:["Homeostasis","Metabolism","Growth","Reproduction","Virus case study"] }
+  ],
+  sortGame: {
+    instructions: "These 10 chips each belong to exactly one folder. Drag (or tap a chip, then tap a bin) to sort them.",
+    bins: [
+      {id:"genetics", label:"🧬 Genetics Ladder"},
+      {id:"info", label:"🔗 Information"},
+      {id:"energy", label:"⚡ Energy"},
+      {id:"diversity", label:"🌍 Diversity"},
+      {id:"characteristics", label:"❤️ Characteristics of Life"}
+    ],
+    chips: [
+      {term:"Mutation", bin:"genetics"},
+      {term:"Natural selection", bin:"genetics"},
+      {term:"Chromosomes", bin:"info"},
+      {term:"Hormones", bin:"info"},
+      {term:"Photosynthesis", bin:"energy"},
+      {term:"ATP", bin:"energy"},
+      {term:"Ecosystem", bin:"diversity"},
+      {term:"Genus", bin:"diversity"},
+      {term:"Homeostasis", bin:"characteristics"},
+      {term:"Are viruses alive?", bin:"characteristics"}
+    ]
+  },
+  traps: [
+    { trap:"“Population” shows up twice — once in the genetics ladder, once in the diversity ladder. That must be two different ideas to learn.",
+      fix:"Same word, same idea, reused. A population (a group sharing a gene pool) is both the top of the genetics ladder AND the bottom rung of the ecological ladder. Don't double-memorize it." },
+    { trap:"“Adaptation” always means a physical trait, like extra fur.",
+      fix:"The chapter uses it two ways: a trait (noun) AND the process of a population gaining that trait over time (verb-ish). Every time it appears, pause and ask: trait, or process, this time?" },
+    { trap:"Mutation, natural selection, and evolution are basically three synonyms for “change.”",
+      fix:"They're three different SCALES of the same story: mutation = molecule, natural selection = individual, evolution = population, over generations. Mixing up the scale is the #1 error in this chapter." }
+  ],
+  hookQuestions: [
+    { q:"Why is “what is alive?” a harder question than it sounds?", a:"Hold this open while you read — the chapter answers it with six characteristics of life, then immediately breaks its own answer with viruses. There's no clean single answer, and that's the point." },
+    { q:"What's the difference between something changing inside one body vs. across a whole population over generations?", a:"That's exactly the mutation → natural selection → evolution scale jump from the Watch Out cards above. One happens in a lifetime; the other takes generations." },
+    { q:"Where does energy on Earth ultimately come from, and how does it get into your own cells?", a:"Sun → autotrophs (photosynthesis → glucose) → heterotrophs eat them → cellular respiration → ATP. One directional pipeline, not a web of facts." },
+    { q:"The chapter itself says don't master the vocabulary yet — it's a preview chapter. So what IS the goal here?", a:"Walk away with four labeled folders and the ladder-vs-chain distinction. Depth on any single term comes later, chapter by chapter." }
+  ],
+  diagram: {
+    title: "How Chapter 1's ideas connect",
+    description: "A quick look at what depends on what — you'll see this shape again in later units.",
+    mermaid: `flowchart TD
+    P1["Outside prerequisite:\\nbasic idea of cells, DNA, genes"]:::ext
+    A[Genotype vs phenotype] --> B[Mutation]
+    B --> C[Natural selection]
+    C --> D[Adaptation]
+    D --> E[Evolution]
+    P1 --> A
+    G[Autotrophs / photosynthesis] --> I["Energy: sun → glucose → ATP"]
+    H[Heterotrophs / respiration] --> I
+    J[Population] --> K[Community] --> L[Ecosystem] --> M[Biome] --> N[Biosphere]
+    O[Species] --> Q[Genus] --> R[...to Domain]
+    S[Six characteristics of life] --> T["Are viruses alive?"]
+    classDef ext fill:#fce7f3,stroke:#ec4899,stroke-width:1px;`
+  },
+  forwardLinks: [
+    { where:"Unit 5 · Ch 17", what:"Mutation → selection → evolution gets real math (allele frequency)." },
+    { where:"Unit 3", what:"Genotype/phenotype seeds the whole transcription/translation pipeline." },
+    { where:"This Unit · Ch 4", what:"DNA/chromosomes, mentioned in passing here, get full structure." },
+    { where:"Unit 2 · Ch 7–8", what:"Autotrophs/heterotrophs become the entire subject." },
+    { where:"Unit 8", what:"Ecological levels become the whole unit's organizing frame." },
+    { where:"Units 6–7", what:"Taxonomy becomes the kingdom-by-kingdom survey." },
+    { where:"Ch 21", what:"“Is a virus alive?” comes back for real." }
+  ],
+  playbook: "Drill Folder 1 (genetics) first — it's the spine, and the mnemonic self-checks: “Genes mutate. Individuals are selected. Populations evolve.” Then Folders 2 and 3 as two separate flowcharts. Then the two diversity ladders back to back — same shape, different content. Save Folder 5 for last, by characteristic name, not as 16 flat terms.",
+  quiz: [
+    { q:"Chapter 1 is best described as…", choices:["One long continuous argument","The same idea told four times at four scales","A list of definitions to memorize","A single chemistry lesson"], correctIndex:1,
+      explain:"Four folders, told in parallel: genetics, information, energy, diversity — plus a closing fifth." },
+    { q:"Which of these is a ladder, where each rung is only defined by the one before it?", choices:["Autotroph → photosynthesis → glucose","Population → community → ecosystem → biome → biosphere","DNA → protein → phenotype","Sunlight → glucose → ATP"], correctIndex:1,
+      explain:"The other three are cause-and-effect chains, not scale ladders." },
+    { q:"“Adaptation” in this chapter can mean…", choices:["Only a physical trait","Only a process","Both a trait and a process — watch which is meant","Neither — it's a synonym for mutation"], correctIndex:2,
+      explain:"This is one of the chapter's two boundary traps: same word, two meanings, unflagged." },
+    { q:"“Genes mutate. Individuals are selected. Populations ___.”", choices:["Adapt","Evolve","Reproduce","Diversify"], correctIndex:1,
+      explain:"The book's own mnemonic — memorize this exact three-step sentence." },
+    { q:"What's the fifth, smaller folder that closes the chapter?", choices:["Diversity","Characteristics of life","Transmission of energy","Evolution"], correctIndex:1,
+      explain:"Characteristics of life is the chapter's own “test” — applied directly to the virus case study." }
+  ],
+  nav: {
+    up: { href:"index.html", label:"Unit 1 Overview" },
+    next: { href:"chapter-2.html", label:"Chemistry 101" }
+  }
+};
+PreLesson(DATA);
+</script>
+</body>
+</html>

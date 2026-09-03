@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pre-Lesson · Unit 1: Chemistry of Life and the Cell</title>
+<meta name="description" content="Interactive pre-lesson hub for Unit 1: Chemistry of Life and the Cell — General Biology">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script src="assets/engine.js"></script>
+<script>
+function chapterPct(id){
+  const s = window.PreLessonStore(id);
+  const keys = ["shape","folders","sort","traps","hooks","quiz"];
+  let done = 0;
+  keys.forEach(k => { if(s.get("done:"+k, false)) done++; });
+  return Math.round(done/keys.length*100);
+}
+
+const CHAPTERS = [
+  { id:"ch1", num:1, title:"Intro to Biology", sub:"Four folders, one idea", href:"chapter-1.html" },
+  { id:"ch2", num:2, title:"Chemistry 101", sub:"Water's polarity is the hub", href:"chapter-2.html" },
+  { id:"ch3", num:3, title:"Chemistry of Life", sub:"One template, applied 4×", href:"chapter-3.html" },
+  { id:"ch4", num:4, title:"Cell Biology", sub:"Two halves: organelles + DNA", href:"chapter-4.html" }
+];
+
+function buildHubExtras(root){
+  // ----- Unit Passport -----
+  const passSec = document.createElement("div");
+  passSec.className = "section";
+  passSec.innerHTML = `<div class="section-head">
+      <div class="section-eyebrow">Your Progress</div>
+      <div class="section-title">Unit 1 Passport</div>
+      <p class="section-desc">Every stamp fills in as you work through a pre-lesson. Come back any time — your progress is saved on this device.</p>
+    </div>`;
+  const passport = document.createElement("div");
+  passport.className = "passport";
+  const stampDefs = [{id:"unit", num:"U", title:"Unit 1"}].concat(
+    CHAPTERS.map(c => ({id:c.id, num:c.num, title:"Ch "+c.num}))
+  );
+  stampDefs.forEach(sd=>{
+    const pct = chapterPct(sd.id);
+    const stamp = document.createElement("div");
+    stamp.className = "stamp" + (pct===100 ? " complete" : "");
+    stamp.innerHTML = `<div class="stamp-ring" style="--pct:${pct}"><span>${pct===100 ? "✓" : sd.num}</span></div>
+      <div class="stamp-label">${sd.title}</div>`;
+    passport.appendChild(stamp);
+  });
+  passSec.appendChild(passport);
+  root.appendChild(passSec);
+
+  // ----- Chapter pipeline -----
+  const pipeSec = document.createElement("div");
+  pipeSec.className = "section";
+  pipeSec.innerHTML = `<div class="section-head">
+      <div class="section-eyebrow">The Unit 1 Pipeline</div>
+      <div class="section-title">One continuous line, four chapters</div>
+      <p class="section-desc">What makes something alive → the inorganic chemistry underneath it → the organic chemistry built from that → the cell structure built from those molecules. Each chapter is a prerequisite for the next.</p>
+    </div>`;
+  const pipeline = document.createElement("div");
+  pipeline.className = "pipeline";
+  CHAPTERS.forEach((c, i)=>{
+    const pct = chapterPct(c.id);
+    const s = window.PreLessonStore(c.id);
+    const xp = s.get("xp", 0);
+    const card = document.createElement("a");
+    card.className = "pipe-card";
+    card.href = c.href;
+    card.innerHTML = `
+      <div class="pipe-num">${c.num}</div>
+      <div class="pipe-body">
+        <div class="pipe-title">${c.title}</div>
+        <div class="pipe-sub">${c.sub} · ⭐ ${xp} XP</div>
+        <div class="pipe-bar"><div class="pipe-bar-fill" style="width:${pct}%"></div></div>
+      </div>
+      <div class="pipe-pct">${pct}%</div>`;
+    pipeline.appendChild(card);
+    if(i < CHAPTERS.length - 1){
+      const arrow = document.createElement("div");
+      arrow.className = "pipe-arrow-row";
+      arrow.textContent = "↓ builds into ↓";
+      pipeline.appendChild(arrow);
+    }
+  });
+  pipeSec.appendChild(pipeline);
+  root.appendChild(pipeSec);
+}
+
+const DATA = {
+  id: "unit",
+  kicker: "General Biology · Unit 1",
+  icon: "🌱",
+  title: "Chemistry of Life and the Cell",
+  subtitle: "The foundation the entire course depends on — four chapters, one continuous line.",
+  hook: {
+    lead: "What makes something alive?",
+    body: "Hold that question loosely for the next four chapters. Unit 1 builds the chemistry and cell-structure vocabulary that nearly every later unit leans on — this pre-lesson is your map before you start."
+  },
+  afterHero: buildHubExtras,
+  shape: {
+    title: "One Continuous Line",
+    description: "Unlike a single chapter, the whole unit moves in one direction — each chapter is a hard prerequisite for the next.",
+    pattern: "Pattern: Linear Chain of 4",
+    emoji: "🧭",
+    headline: "Ch.1 → Ch.2 → Ch.3 → Ch.4",
+    detail: "Chapter 1 previews the whole year's vocabulary without expecting mastery. Chapter 2 builds inorganic chemistry (atoms, bonding, water, pH). Chapter 3 builds organic chemistry (the 4 macromolecules) FROM that inorganic chemistry. Chapter 4 applies both to build the cell itself. Skipping a link breaks the chain — this is the one unit where reading order really matters."
+  },
+  folders: [
+    { emoji:"🧬", name:"Ch 1 · Intro to Biology", role:"Preview only — 4 parallel folders, no mastery expected yet.",
+      terms:["Evolution","Information","Energy","Diversity"] },
+    { emoji:"💧", name:"Ch 2 · Chemistry 101", role:"Inorganic chemistry — the hub is water's polarity.",
+      terms:["Bonding","Water","pH &amp; buffers"] },
+    { emoji:"🧱", name:"Ch 3 · Chemistry of Life", role:"Organic chemistry — one template, 4 macromolecules.",
+      terms:["Proteins","Carbohydrates","Lipids","Nucleic acids"] },
+    { emoji:"🔬", name:"Ch 4 · Cell Biology", role:"Applies Ch 2 &amp; 3 to build the actual cell.",
+      terms:["Organelles","Eukaryote vs prokaryote","DNA packaging"] }
+  ],
+  sortGame: {
+    instructions: "Every term in this unit lives in exactly one chapter. Sort these 12 into the chapter where they belong.",
+    bins: [
+      {id:"ch1", label:"Ch 1"},
+      {id:"ch2", label:"Ch 2"},
+      {id:"ch3", label:"Ch 3"},
+      {id:"ch4", label:"Ch 4"}
+    ],
+    chips: [
+      {term:"Natural selection", bin:"ch1"},
+      {term:"Ecosystem", bin:"ch1"},
+      {term:"Autotroph", bin:"ch1"},
+      {term:"Hydrogen bond", bin:"ch2"},
+      {term:"pH scale", bin:"ch2"},
+      {term:"Ionic bond", bin:"ch2"},
+      {term:"Peptide bond", bin:"ch3"},
+      {term:"Nucleotide", bin:"ch3"},
+      {term:"Dehydration reaction", bin:"ch3"},
+      {term:"Mitochondria", bin:"ch4"},
+      {term:"Chromatin", bin:"ch4"},
+      {term:"Eukaryote vs prokaryote", bin:"ch4"}
+    ]
+  },
+  traps: [
+    { trap:"Chapter 4 is “the cell chapter” — it must be a fresh start, unrelated to Chapters 2–3's chemistry.",
+      fix:"Chapter 4 IS Chapters 2–3's chemistry, just organized into compartments. The membrane is Ch 3's phospholipids. DNA is Ch 3's nucleotides. Nothing here is new chemistry — it's the same molecules, given a home." },
+    { trap:"Chapter 1's energy vocabulary (autotroph, ATP, photosynthesis) is a one-time preview — it won't come up again for a while.",
+      fix:"It resurfaces almost immediately, as the real chemistry, in Chapter 3's template — and becomes the entire subject of Unit 2 (Ch 7–8). Chapter 1 previews; later chapters cash the check." },
+    { trap:"Mastering each chapter's vocabulary separately is the goal — the unit is basically four independent quizzes.",
+      fix:"The unit's real product is one continuous prerequisite chain: Ch 2's polarity → Unit 2's membrane transport. Ch 4's DNA structure → Unit 3's mitosis/meiosis. Every Ch 3 macromolecule reappears as a working cell part all year." }
+  ],
+  hookQuestions: [
+    { q:"What makes something alive? Try to answer it now, in one sentence — then compare after Chapter 1's six characteristics of life.", a:"There's no clean single answer — that's the actual lesson. Viruses will break whatever definition you land on, on purpose." },
+    { q:"Why would a biology book spend two full chapters on chemistry (Ch 2 &amp; 3) before ever describing a cell (Ch 4)?", a:"Because a cell is built FROM that chemistry. You can't understand a membrane without polarity (Ch 2) or phospholipids (Ch 3) first — the order is load-bearing, not arbitrary." },
+    { q:"Of these four chapters, which one do you think you'll come back to the most across the rest of the year?", a:"There's a case for all of them — but Ch 2 (polarity) and Ch 4 (cell structure, DNA) are the two most-cited chapters in the entire course's later units. Keep that in mind for where to invest extra review time." }
+  ],
+  diagram: {
+    title: "How Unit 1 feeds the rest of the course",
+    description: "This is the highest-leverage unit in the book — nearly every later unit borrows something from it.",
+    mermaid: `flowchart LR
+    C1["Ch 1\\nIntro to Biology"] --> C2["Ch 2\\nChemistry 101"]
+    C2 --> C3["Ch 3\\nChemistry of Life"]
+    C3 --> C4["Ch 4\\nCell Biology"]
+    C2 -.polarity.-> U2["Unit 2\\nMembrane transport"]
+    C3 -.macromolecules.-> U2
+    C4 -.DNA structure.-> U3["Unit 3\\nMitosis / Meiosis"]
+    C1 -.mutation→selection.-> U5["Unit 5\\nEvolution"]
+    C1 -.taxonomy.-> U67["Units 6-7\\nKingdoms"]
+    C1 -.ecology ladder.-> U8["Unit 8\\nEcology"]
+    C4 -.eukaryote/prokaryote.-> U67
+    style C1 fill:#7c3aed,color:#fff,stroke:none
+    style C2 fill:#8b5cf6,color:#fff,stroke:none
+    style C3 fill:#a855f7,color:#fff,stroke:none
+    style C4 fill:#ec4899,color:#fff,stroke:none`
+  },
+  forwardLinks: [
+    { where:"Unit 2 · Membrane transport", what:"Needs Chapter 2's polarity concepts, directly and immediately." },
+    { where:"Unit 3 · Mitosis &amp; Meiosis", what:"Needs Chapter 4's DNA structure — no re-teaching happens there." },
+    { where:"All year", what:"Every macromolecule from Chapter 3 reappears as a working part of the cell." },
+    { where:"Unit 5 · Evolution", what:"Chapter 1's mutation→selection→evolution chain gets formal math." },
+    { where:"Units 6–7 · Kingdoms", what:"Chapter 1's taxonomy and Chapter 4's eukaryote/prokaryote line organize the whole survey." }
+  ],
+  playbook: "Read Chapter 1 lightly — it's a preview, not a mastery chapter. Then build Chapter 2 rock-solid, since both Chapter 3 and Chapter 4 quietly depend on its bonding and polarity ideas without re-explaining them. Chapter 3's template (dehydration/hydrolysis) is worth over-learning, since it's reused by name later in digestion and metabolism. Save the most review time for Chapters 2 and 4 — they're the two most-cited chapters in the rest of the course.",
+  quiz: [
+    { q:"Unit 1's four chapters are best understood as…", choices:["Four independent topics you can read in any order","One continuous chain — each chapter is a prerequisite for the next","A random assortment of vocabulary","Four repeats of the same content"], correctIndex:1,
+      explain:"What makes something alive → inorganic chemistry → organic chemistry → cell structure. Order matters here." },
+    { q:"Which chapter's ideas are the DIRECT prerequisite for Unit 2's membrane transport?", choices:["Chapter 1","Chapter 2","Chapter 3 only","None of them"], correctIndex:1,
+      explain:"Chapter 2's polarity concepts (hydrophilic/hydrophobic) are used immediately in Unit 2, without re-derivation." },
+    { q:"Chapter 4's cell membrane and DNA are built from…", choices:["Brand-new chemistry introduced in Ch 4","Chapter 3's phospholipids and nucleotides","Chapter 1's vocabulary alone","Nothing — cells are chemistry-free"], correctIndex:1,
+      explain:"Chapter 4 is Chapters 2–3's chemistry, organized into compartments — not a fresh start." },
+    { q:"Which two chapters are described as the most-cited in the REST of the course?", choices:["Ch 1 and Ch 3","Ch 2 and Ch 4","Ch 1 and Ch 4","Ch 2 and Ch 3"], correctIndex:1,
+      explain:"Chapter 2 (polarity/bonding) and Chapter 4 (cell structure/DNA) get borrowed constantly by later units." },
+    { q:"Chapter 1 asks you to master its vocabulary in depth before moving on.", choices:["True — mastery now saves time later","False — it's a preview chapter; the goal is 4 labeled folders, not depth"], correctIndex:1,
+      explain:"The book itself says not to chase mastery here. Depth comes chapter by chapter, later." }
+  ],
+  nav: {
+    next: { href:"chapter-1.html", label:"Start · Intro to Biology" }
+  }
+};
+PreLesson(DATA);
+</script>
+</body>
+</html>
